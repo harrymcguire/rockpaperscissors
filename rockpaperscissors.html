@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    
+function computerPlay(){
+    //computer round. returns either "rock", "paper", or "scissors".
+        let randint = Math.random() * 10;
+        if (randint >= 5.666){
+            return "rock";
+            }
+        else if (randint <= 2.333){
+            return "paper";
+            }
+        else {
+            return "scissors";
+            }
+}
+        
+function playRound(playerSelection, computerSelection){
+    //a bunch of if statements that compare the comp round to the user round. will either returns "You lose!", "You Win!", "Tie!".
+        if (playerSelection == "paper"){
+            if (computerSelection == "paper"){
+                return "Tie!";
+            }
+            if (computerSelection == "rock"){
+                return "You win!";
+            }
+            if (computerSelection == "scissors"){
+                return "You lose!";
+            }
+        }
+        
+        
+        if (playerSelection == "rock"){  
+            if (computerSelection == "paper"){
+                return "You lose!";
+            }
+            if (computerSelection == "rock"){
+                return "Tie!";
+            }
+            if (computerSelection == "scissors"){
+                return "You win!";
+            }
+        }
+        
+        
+        if (playerSelection == "scissors"){
+            
+            if (computerSelection == "paper"){
+                return "You win!";
+            }
+            if (computerSelection == "rock"){
+                return "You lose!";
+            }
+            if (computerSelection == "scissors"){
+                return "Tie!";
+            }
+        }
+}
+function game(){
+    let score = 0;
+    for (i = 0; i < 5; i++) {
+        //the main loop. defines user choice, comp choice, and sends them to playRound to be compared.
+        let playerSelection = window.prompt(`Round ${i + 1}! Make your choice!`);
+        let computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        console.log(result);
+        if (result == "You win!"){//increments the score either postively or negatively depending on who wins.
+            score = ++score;
+        }
+        else if (result == "You lose!"){
+            score = --score;
+        }
+        console.log(score);
+    }
+    if (score <= 0){//if the score is below 0, the comp won. if the score is above 0, the user won.
+        console.log("Sorry! You lose! Better luck next time!");
+    }
+    else {
+        console.log("You win! Nice job!");
+    }
+
+}    
+        
+game();
+      
+        
+        
+        
+
+    </script>
+    </head>
+<body>
+  </body>
+</html>
+
