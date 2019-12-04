@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    </head>
+<body>
+    <button id="rock" type="button">Rock</button><button id="paper" type="button">Paper</button><button id="scissors" type="button">Scissors</button>
+    <div id="roundresult"></div>
+    <div id="gameresult"></div>
+    <br>
+    <p>Round: </p><div id="roundnumber"></div>
+    <p>Player's Score: </p><div id="playerscore">0</div><br>
+    <p>Computer's Score: </p><div id="computerscore">0</div>
+    <button id="startover" style = "display:none"type="button">Start Over</button>
+
+  </body>
+    <script>
+let score = 0;
+let i = 0;
+const roundresult = document.getElementById('roundresult');
+const roundnumber = document.getElementById('roundnumber');
+const gameresult = document.getElementById('gameresult');
+const playerscore = document.getElementById('playerscore');
+const computerscore = document.getElementById('computerscore');
+let pscoreint = 0;
+let cscoreint = 0;
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+      if (button.id != "startover"){
+      game(button.innerHTML)
+        }
+      else {
+        location.reload();   
+      }
+  })
+});       
+
+function computerPlay(){
+    //computer round. returns either "rock", "paper", or "scissors".
+        let randint = Math.random() * 10;
+        if (randint >= 5.666){
+            return "rock";
+            }
+        else if (randint <= 2.333){
+            return "paper";
+            }
+        else {
+            return "scissors";
+            }
+}
+        
+function playRound(playerSelection, computerSelection){
+    //a bunch of if statements that compare the comp round to the user round. will either returns "You lose!", "You Win!", "Tie!".
+        if (playerSelection == "Paper"){
+            if (computerSelection == "paper"){
+                return "Tie!";
+            }
+            if (computerSelection == "rock"){
+                return "You win!";
+            }
+            if (computerSelection == "scissors"){
+                return "You lose!";
+            }
+        }
+        
+        
+        if (playerSelection == "Rock"){  
+            if (computerSelection == "paper"){
+                return "You lose!";
+            }
+            if (computerSelection == "rock"){
+                return "Tie!";
+            }
+            if (computerSelection == "scissors"){
+                return "You win!";
+            }
+        }
+        
+        
+        if (playerSelection == "Scissors"){
+            
+            if (computerSelection == "paper"){
+                return "You win!";
+            }
+            if (computerSelection == "rock"){
+                return "You lose!";
+            }
+            if (computerSelection == "scissors"){
+                return "Tie!";
+            }
+        }
+}
+
+function game(choice){
+        //the main loop. defines user choice, comp choice, and sends them to playRound to be compared.
+        let playerSelection = choice;
+        let computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        if (roundresult.textContent != ""){
+            roundresult.textContent = "";
+        }
+        setTimeout(function(){ roundresult.textContent = result; 
+        
+        if (result == "You win!"){//increments the score either postively or negatively depending on who wins.
+            score = ++score;
+            pscoreint = ++pscoreint;
+            playerscore.textContent = pscoreint; 
+        }
+        else if (result == "You lose!"){
+            score = --score;
+            cscoreint = ++cscoreint;
+            computerscore.textContent = cscoreint; 
+            
+        }
+        console.log(score);
+    i = ++i
+    roundnumber.textContent = i;                         
+    if (i == 5){
+    roundresult.textContent = "";
+        buttons.forEach((button) => {
+            if (button.id != "startover"){
+    button.style.display = "none"; 
+            }
+            else{
+             button.style.display = "block";   
+            }
+        });
+    
+    if (score <= 0){//if the score is below 0, the comp won. if the score is above 0, the user won.
+        console.log("Sorry! You lose! Better luck next time!");
+        gameresult.textContent = "Sorry! You lost! Better luck next time!";
+    }
+    else {
+        console.log("You win! Nice job!");
+        gameresult.textContent = "You Won! Nice job!";
+        
+    }
+}}, 10);
+}    
+        
+      
+        
+        
+        
+
+    </script>
+</html>
+
